@@ -5,12 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "exercises")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class Exercise {
 
@@ -30,4 +30,8 @@ public class Exercise {
 
     @OneToMany(mappedBy = "exercise")
     private Set<WorkoutExercise> workoutExercises;
+
+    public Exercise() {
+        this.workoutExercises = new HashSet<>();
+    }
 }
