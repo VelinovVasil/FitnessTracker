@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class RecipeShortDTO {
 
+    private Long id;
+
     private String name;
 
     private RecipeType recipeType;
