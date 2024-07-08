@@ -40,7 +40,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         this.userRepository.saveAndFlush(user);
 
-        String jwtToken = this.jwtService.generateToken(user);
+        String jwtToken = this.jwtService.generateToken(user, user.getId());
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
@@ -59,7 +59,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = this.userRepository.findUserByUsername(request.getUsername())
                 .orElseThrow();
 
-        String jwtToken = this.jwtService.generateToken(user);
+        String jwtToken = this.jwtService.generateToken(user, user.getId());
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
