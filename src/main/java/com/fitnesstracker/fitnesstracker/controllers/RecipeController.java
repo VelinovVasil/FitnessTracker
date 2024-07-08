@@ -29,4 +29,10 @@ public class RecipeController {
         return ResponseEntity.ok(this.recipeService.getAllRecipesByUserId(userId));
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/{id}")
+    public ResponseEntity<RecipeDetailDTO> getRecipeById(@PathVariable Long id) {
+        return ResponseEntity.ok(this.recipeService.getRecipeById(id));
+    }
+
 }

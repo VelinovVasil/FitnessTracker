@@ -55,5 +55,17 @@ public class RecipeServiceImpl implements RecipeService {
 
     }
 
+    @Override
+    public RecipeDetailDTO getRecipeById(Long recipeId) {
+
+        Optional<Recipe> recipe = this.recipeRepository.findById(recipeId);
+
+        if (recipe.isEmpty()) {
+            // ToDo: throw an error
+        }
+
+        return this.modelMapper.map(recipe.get(), RecipeDetailDTO.class);
+    }
+
 
 }

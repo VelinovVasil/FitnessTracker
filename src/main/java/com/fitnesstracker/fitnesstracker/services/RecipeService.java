@@ -10,4 +10,6 @@ public interface RecipeService {
     RecipeDetailDTO createRecipe(RecipeDetailDTO recipeDetailDTO);
 
     List<RecipeShortDTO> getAllRecipesByUserId(Long userId);
+
+    RecipeDetailDTO getRecipeById(Long recipeId);
 }
