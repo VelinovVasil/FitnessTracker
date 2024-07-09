@@ -67,5 +67,10 @@ public class RecipeServiceImpl implements RecipeService {
         return this.modelMapper.map(recipe.get(), RecipeDetailDTO.class);
     }
 
+    @Override
+    public void deleteRecipeById(Long id) {
+        this.recipeRepository.deleteById(id);
+    }
+
 
 }
