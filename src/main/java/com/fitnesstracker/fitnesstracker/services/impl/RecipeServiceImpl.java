@@ -72,5 +72,22 @@ public class RecipeServiceImpl implements RecipeService {
         this.recipeRepository.deleteById(id);
     }
 
+    @Override
+    public void updateRecipe(Long id, RecipeDetailDTO recipeDetailDTO) {
+
+        Optional<Recipe> optional = this.recipeRepository.findById(id);
+
+        if (optional.isEmpty()) {
+            // ToDo: throw an error
+        }
+
+        Recipe recipe = optional.get();
+
+        Recipe editedRecipe = this.modelMapper.map(recipeDetailDTO, Recipe.class);
+        editedRecipe.setId(recipe.getId());
+
+        this.recipeRepository.save(editedRecipe);
+    }
+
 
 }

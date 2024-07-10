@@ -43,4 +43,10 @@ public class RecipeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateRecipe(@PathVariable Long id, @RequestBody RecipeDetailDTO dto) {
+        this.recipeService.updateRecipe(id, dto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
