@@ -2,6 +2,7 @@ package com.fitnesstracker.fitnesstracker.services.impl;
 
 
 import com.fitnesstracker.fitnesstracker.models.dto.ExerciseDTO;
+import com.fitnesstracker.fitnesstracker.models.dto.ExerciseReturnDTO;
 import com.fitnesstracker.fitnesstracker.models.entity.Exercise;
 import com.fitnesstracker.fitnesstracker.repositories.ExerciseRepository;
 import com.fitnesstracker.fitnesstracker.services.ExerciseService;
@@ -9,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,5 +55,14 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         this.exerciseRepository.save(toEdit);
         return exerciseDTO;
+    }
+
+    @Override
+    public List<ExerciseReturnDTO> getAllExercises() {
+        return this.exerciseRepository
+                .findAll()
+                .stream()
+                .map(e -> this.modelMapper.map(e, ExerciseReturnDTO.class))
+                .collect(Collectors.toList());
     }
 }
