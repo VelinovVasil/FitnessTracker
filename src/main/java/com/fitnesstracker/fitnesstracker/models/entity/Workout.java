@@ -24,6 +24,9 @@ public class Workout {
     @Column
     private String description;
 
+    @Column
+    private int duration;
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User createdBy;

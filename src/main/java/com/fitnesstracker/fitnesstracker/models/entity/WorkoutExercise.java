@@ -2,12 +2,16 @@ package com.fitnesstracker.fitnesstracker.models.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "workout_exercises")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class WorkoutExercise {
 
     @Id
