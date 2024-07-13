@@ -1,6 +1,7 @@
 package com.fitnesstracker.fitnesstracker.services.impl;
 
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutCreateDTO;
+import com.fitnesstracker.fitnesstracker.models.dto.WorkoutShortDTO;
 import com.fitnesstracker.fitnesstracker.models.entity.Workout;
 import com.fitnesstracker.fitnesstracker.models.entity.WorkoutExercise;
 import com.fitnesstracker.fitnesstracker.repositories.ExerciseRepository;
@@ -52,5 +53,14 @@ public class WorkoutServiceImpl implements WorkoutService {
                 }).toList();
 
         this.workoutExerciseService.saveAll(workoutExercises);
+    }
+
+    @Override
+    public List<WorkoutShortDTO> getAllWorkoutsByUserId(Long userId) {
+        return this.workoutRepository
+                .findAllByCreatedById(userId)
+                .stream()
+                .map(w -> this.modelMapper.map(w, WorkoutShortDTO.class))
+                .collect(Collectors.toList());
     }
 }
