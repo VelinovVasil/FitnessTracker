@@ -31,4 +31,9 @@ public class ExerciseController {
         this.exerciseService.createExercise(dto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ExerciseReturnDTO> getExerciseById(@PathVariable Long id) {
+        return ResponseEntity.ok(this.exerciseService.getExerciseById(id));
+    }
 }

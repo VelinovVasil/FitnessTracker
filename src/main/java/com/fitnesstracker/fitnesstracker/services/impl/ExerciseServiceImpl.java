@@ -65,4 +65,9 @@ public class ExerciseServiceImpl implements ExerciseService {
                 .map(e -> this.modelMapper.map(e, ExerciseReturnDTO.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ExerciseReturnDTO getExerciseById(Long id) {
+        return this.modelMapper.map(this.exerciseRepository.findById(id).get(), ExerciseReturnDTO.class);
+    }
 }

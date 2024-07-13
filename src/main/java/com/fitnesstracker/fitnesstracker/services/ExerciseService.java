@@ -14,4 +14,6 @@ public interface ExerciseService {
     ExerciseDTO editExercise(Long exerciseId, ExerciseDTO exerciseDTO);
 
     List<ExerciseReturnDTO> getAllExercises();
+
+    ExerciseReturnDTO getExerciseById(Long id);
 }

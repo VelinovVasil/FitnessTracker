@@ -32,6 +32,6 @@ public class Workout {
     private User createdBy;
 
     @OneToMany(mappedBy = "workout")
-    private Set<WorkoutExercise> workoutExercise;
+    private Set<WorkoutExercise> workoutExercises;
 
 }

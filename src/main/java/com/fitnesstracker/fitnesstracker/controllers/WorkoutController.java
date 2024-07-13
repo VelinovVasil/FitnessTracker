@@ -2,6 +2,8 @@ package com.fitnesstracker.fitnesstracker.controllers;
 
 
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutCreateDTO;
+import com.fitnesstracker.fitnesstracker.models.dto.WorkoutDTO;
+import com.fitnesstracker.fitnesstracker.models.dto.WorkoutExerciseDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutShortDTO;
 import com.fitnesstracker.fitnesstracker.services.WorkoutService;
 import lombok.RequiredArgsConstructor;
@@ -28,4 +30,11 @@ public class WorkoutController {
     public ResponseEntity<List<WorkoutShortDTO>> getAllWorkoutsByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(this.workoutService.getAllWorkoutsByUserId(userId));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<WorkoutDTO> getWorkoutById(@PathVariable Long id) {
+        return ResponseEntity.ok(this.workoutService.getWorkoutById(id));
+    }
+
+
 }
