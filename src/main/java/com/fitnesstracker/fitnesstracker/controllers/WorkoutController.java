@@ -36,5 +36,15 @@ public class WorkoutController {
         return ResponseEntity.ok(this.workoutService.getWorkoutById(id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteWorkoutById(@PathVariable Long id) {
+        this.workoutService.deleteWorkoutById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateWorkout(@PathVariable Long id, @RequestBody WorkoutDTO workoutDTO) {
+        this.workoutService.updateWorkout(id, workoutDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

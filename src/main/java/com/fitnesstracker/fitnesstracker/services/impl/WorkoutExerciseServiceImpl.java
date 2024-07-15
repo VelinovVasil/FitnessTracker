@@ -21,7 +21,13 @@ public class WorkoutExerciseServiceImpl implements WorkoutExerciseService {
     private final ModelMapper modelMapper;
 
     @Override
-    public void saveAll(List<WorkoutExercise> workoutExercises) {
+    public void saveAll(Iterable<WorkoutExercise> workoutExercises) {
         this.workoutExerciseRepository.saveAll(workoutExercises);
     }
+
+    @Override
+    public void deleteAll(List<WorkoutExercise> workoutExercises) {
+        this.workoutExerciseRepository.deleteAll(workoutExercises);
+    }
+
 }

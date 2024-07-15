@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,6 +41,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
         Workout workout = this.modelMapper.map(workoutCreateDTO, Workout.class);
         workout.setCreatedBy(userRepository.findById(workoutCreateDTO.getUserId()).get());
+        workout.setWorkoutExercises(null);
 
         workout = this.workoutRepository.save(workout);
 
@@ -88,5 +90,45 @@ public class WorkoutServiceImpl implements WorkoutService {
         workoutDTO.setWorkoutExercises(workoutExerciseDTOs);
 
         return workoutDTO;
+    }
+
+    @Override
+    public void deleteWorkoutById(Long id) {
+
+        List<WorkoutExercise> workoutExerciseIds = this.workoutRepository
+                .findById(id)
+                .get()
+                .getWorkoutExercises()
+                .stream()
+                .toList();
+
+        this.workoutExerciseService.deleteAll(workoutExerciseIds);
+        this.workoutRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateWorkout(Long id, WorkoutDTO workoutDTO) {
+
+        Workout workout  = this.workoutRepository.findById(id).get();
+
+        workout.setName(workoutDTO.getName());
+        workout.setDescription(workoutDTO.getDescription());
+        workout.setDuration(workoutDTO.getDuration());
+
+        Set<WorkoutExercise> workoutExercises = workoutDTO
+                .getWorkoutExercises()
+                .stream()
+                .map(e -> {
+                    WorkoutExercise workoutExercise = this.modelMapper.map(e, WorkoutExercise.class);
+                    workoutExercise.setWorkout(workout);
+                    workoutExercise.setExercise(this.exerciseRepository.findById(e.getExerciseId()).get());
+                    return workoutExercise;
+                }).collect(Collectors.toSet());
+
+
+        workout.setWorkoutExercises(workoutExercises);
+
+        this.workoutRepository.save(workout);
+        this.workoutExerciseService.saveAll(workoutExercises);
     }
 }
