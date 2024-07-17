@@ -19,13 +19,13 @@ public class ExerciseController {
 
     private final ExerciseService exerciseService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/")
     public ResponseEntity<List<ExerciseReturnDTO>> getAllExercises() {
         return ResponseEntity.ok(this.exerciseService.getAllExercises());
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/")
     public ResponseEntity<Void> createExercise(@RequestBody ExerciseDTO dto) {
         this.exerciseService.createExercise(dto);
