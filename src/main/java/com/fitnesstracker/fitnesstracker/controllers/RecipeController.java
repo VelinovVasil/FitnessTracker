@@ -18,6 +18,12 @@ public class RecipeController {
 
     private final RecipeService recipeService;
 
+
+    @GetMapping("/")
+    public ResponseEntity<List<RecipeShortDTO>> getAllRecipes() {
+        return ResponseEntity.ok(this.recipeService.getAllRecipes());
+    }
+
 //    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/create")
     public ResponseEntity<RecipeDetailDTO> addRecipe(@RequestBody RecipeDetailDTO recipeDetailDTO) {

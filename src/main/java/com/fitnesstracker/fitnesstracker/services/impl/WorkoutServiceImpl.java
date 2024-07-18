@@ -131,4 +131,13 @@ public class WorkoutServiceImpl implements WorkoutService {
         this.workoutRepository.save(workout);
         this.workoutExerciseService.saveAll(workoutExercises);
     }
+
+    @Override
+    public List<WorkoutShortDTO> getAllWorkouts() {
+        return this.workoutRepository
+                .findAll()
+                .stream()
+                .map(w -> this.modelMapper.map(w, WorkoutShortDTO.class))
+                .collect(Collectors.toList());
+    }
 }

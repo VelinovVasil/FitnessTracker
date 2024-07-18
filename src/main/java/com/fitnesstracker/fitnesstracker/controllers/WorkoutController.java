@@ -20,6 +20,11 @@ public class WorkoutController {
 
     private final WorkoutService workoutService;
 
+    @GetMapping("/")
+    public ResponseEntity<List<WorkoutShortDTO>> getAllWorkouts() {
+        return ResponseEntity.ok(this.workoutService.getAllWorkouts());
+    }
+
     @PostMapping("/create")
     public ResponseEntity<Void> createWorkout(@RequestBody WorkoutCreateDTO workoutCreateDTO) {
         this.workoutService.createWorkout(workoutCreateDTO);

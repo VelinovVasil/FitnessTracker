@@ -89,5 +89,14 @@ public class RecipeServiceImpl implements RecipeService {
         this.recipeRepository.save(editedRecipe);
     }
 
+    @Override
+    public List<RecipeShortDTO> getAllRecipes() {
+        return this.recipeRepository
+                .findAll()
+                .stream()
+                .map(r -> this.modelMapper.map(r, RecipeShortDTO.class))
+                .collect(Collectors.toList());
+    }
+
 
 }

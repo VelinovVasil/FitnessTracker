@@ -18,4 +18,6 @@ public interface WorkoutService {
     void deleteWorkoutById(Long id);
 
     void updateWorkout(Long id, WorkoutDTO workoutDTO);
+
+    List<WorkoutShortDTO> getAllWorkouts();
 }
