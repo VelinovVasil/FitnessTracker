@@ -33,6 +33,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
 
+        if (this.userRepository.existsByEmailOrUsername(request.getEmail(), request.getUsername())) {
+
+            throw new IllegalArgumentException("User with this email / username already exists");
+        }
+
         User user = this.modelMapper.map(request, User.class);
         user.setPassword(this.encoder.encode(request.getPassword()));
 
