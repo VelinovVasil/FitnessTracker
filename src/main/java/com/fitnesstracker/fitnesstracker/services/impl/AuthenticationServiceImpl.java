@@ -24,8 +24,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final ModelMapper modelMapper;
 
-    @Autowired
-    private PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
     private final JwtService jwtService;
 
@@ -36,7 +35,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         User user = this.modelMapper.map(request, User.class);
         user.setPassword(this.encoder.encode(request.getPassword()));
-        user.setRole(Role.USER);
+
+        if (this.userRepository.count() == 0) {
+
+            user.setRole(Role.ADMIN);
+
+        } else {
+
+            user.setRole(Role.USER);
+
+        }
 
         this.userRepository.saveAndFlush(user);
 

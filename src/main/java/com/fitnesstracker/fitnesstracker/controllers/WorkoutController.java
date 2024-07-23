@@ -6,6 +6,7 @@ import com.fitnesstracker.fitnesstracker.models.dto.WorkoutDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutExerciseDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutShortDTO;
 import com.fitnesstracker.fitnesstracker.services.WorkoutService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class WorkoutController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createWorkout(@RequestBody WorkoutCreateDTO workoutCreateDTO) {
+    public ResponseEntity<Void> createWorkout(@Valid @RequestBody WorkoutCreateDTO workoutCreateDTO) {
         this.workoutService.createWorkout(workoutCreateDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -48,7 +49,7 @@ public class WorkoutController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateWorkout(@PathVariable Long id, @RequestBody WorkoutDTO workoutDTO) {
+    public ResponseEntity<Void> updateWorkout(@PathVariable Long id, @Valid @RequestBody WorkoutDTO workoutDTO) {
         this.workoutService.updateWorkout(id, workoutDTO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
