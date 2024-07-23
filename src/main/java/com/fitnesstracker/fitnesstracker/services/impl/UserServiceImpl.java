@@ -31,4 +31,9 @@ public class UserServiceImpl implements UserService {
                 })
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public UserDTO getUserById(Long id) {
+        return modelMapper.map(this.userRepository.findById(id).orElseThrow(), UserDTO.class);
+    }
 }

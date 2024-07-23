@@ -5,11 +5,13 @@ import com.fitnesstracker.fitnesstracker.models.dto.WorkoutCreateDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutExerciseDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutShortDTO;
+import com.fitnesstracker.fitnesstracker.services.UserSecurityService;
 import com.fitnesstracker.fitnesstracker.services.WorkoutService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.List;
 public class WorkoutController {
 
     private final WorkoutService workoutService;
+
+    private final UserSecurityService userSecurityService;
 
     @GetMapping("/")
     public ResponseEntity<List<WorkoutShortDTO>> getAllWorkouts() {
@@ -41,6 +45,7 @@ public class WorkoutController {
     public ResponseEntity<WorkoutDTO> getWorkoutById(@PathVariable Long id) {
         return ResponseEntity.ok(this.workoutService.getWorkoutById(id));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteWorkoutById(@PathVariable Long id) {
