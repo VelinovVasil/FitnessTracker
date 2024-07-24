@@ -1,9 +1,7 @@
 package com.fitnesstracker.fitnesstracker.handler;
 
 
-import com.fitnesstracker.fitnesstracker.handler.exceptions.ExerciseNotFoundException;
-import com.fitnesstracker.fitnesstracker.handler.exceptions.UserNotFoundException;
-import com.fitnesstracker.fitnesstracker.handler.exceptions.WorkoutNotFoundException;
+import com.fitnesstracker.fitnesstracker.handler.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,9 +32,29 @@ public class GlobalErrorHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ExerciseNotFoundException.class)
-    public String handleUserAlreadyExists(final HttpServletRequest request, final Exception error) {
+    public String handleExerciseNotFound(final HttpServletRequest request, final Exception error) {
         logger.severe(error.getMessage() + " " + request.getRequestURI() + " " + request.getMethod());
         return "Exercise not found";
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(RecipeNotFoundException.class)
+    public String handleRecipeNotFound(final HttpServletRequest request, final Exception error) {
+        logger.severe(error.getMessage() + " " + request.getRequestURI() + " " + request.getMethod());
+        return "Recipe not found";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(WorkoutExerciseNotFoundException.class)
+    public String handleWorkoutExerciseNotFound(final HttpServletRequest request, final Exception error) {
+        logger.severe(error.getMessage() + " " + request.getRequestURI() + " " + request.getMethod());
+        return "WorkoutExercise not found";
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public String handleUserAlreadyExists(final HttpServletRequest request, final Exception error) {
+        logger.severe(error.getMessage() + " " + request.getRequestURI() + " " + request.getMethod());
+        return "User already exists";
+    }
 }
