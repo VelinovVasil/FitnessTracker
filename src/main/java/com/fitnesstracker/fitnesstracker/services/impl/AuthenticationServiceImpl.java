@@ -1,6 +1,8 @@
 package com.fitnesstracker.fitnesstracker.services.impl;
 
 import com.fitnesstracker.fitnesstracker.config.JwtService;
+import com.fitnesstracker.fitnesstracker.handler.exceptions.UserAlreadyExistsException;
+import com.fitnesstracker.fitnesstracker.handler.exceptions.UserNotFoundException;
 import com.fitnesstracker.fitnesstracker.models.entity.Role;
 import com.fitnesstracker.fitnesstracker.models.entity.User;
 import com.fitnesstracker.fitnesstracker.models.request.AuthenticationRequest;
@@ -35,7 +37,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         if (this.userRepository.existsByEmailOrUsername(request.getEmail(), request.getUsername())) {
 
-            throw new IllegalArgumentException("User with this email / username already exists");
+            throw new UserAlreadyExistsException("User with this username / email already exists");
+
         }
 
         User user = this.modelMapper.map(request, User.class);
@@ -70,7 +73,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         );
 
         User user = this.userRepository.findUserByUsername(request.getUsername())
-                .orElseThrow();
+                .orElseThrow(() -> new UserNotFoundException("No user with such username found"));
 
         String jwtToken = this.jwtService.generateToken(user, user.getId());
 

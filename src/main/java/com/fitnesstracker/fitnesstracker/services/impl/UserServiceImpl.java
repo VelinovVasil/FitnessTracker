@@ -1,5 +1,6 @@
 package com.fitnesstracker.fitnesstracker.services.impl;
 
+import com.fitnesstracker.fitnesstracker.handler.exceptions.UserNotFoundException;
 import com.fitnesstracker.fitnesstracker.models.dto.UserDTO;
 import com.fitnesstracker.fitnesstracker.repositories.UserRepository;
 import com.fitnesstracker.fitnesstracker.services.UserService;
@@ -34,6 +35,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserById(Long id) {
-        return modelMapper.map(this.userRepository.findById(id).orElseThrow(), UserDTO.class);
+        return modelMapper.map(this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with such id not found")), UserDTO.class);
     }
 }

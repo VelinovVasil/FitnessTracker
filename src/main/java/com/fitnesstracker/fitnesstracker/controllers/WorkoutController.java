@@ -47,11 +47,13 @@ public class WorkoutController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN') or @userSecurityService.isOwner(principal.username, #id)")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteWorkoutById(@PathVariable Long id) {
         this.workoutService.deleteWorkoutById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateWorkout(@PathVariable Long id, @Valid @RequestBody WorkoutDTO workoutDTO) {

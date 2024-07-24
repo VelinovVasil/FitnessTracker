@@ -1,6 +1,8 @@
 package com.fitnesstracker.fitnesstracker.services.impl;
 
 
+import com.fitnesstracker.fitnesstracker.handler.exceptions.RecipeNotFoundException;
+import com.fitnesstracker.fitnesstracker.handler.exceptions.UserNotFoundException;
 import com.fitnesstracker.fitnesstracker.models.dto.RecipeDetailDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.RecipeShortDTO;
 import com.fitnesstracker.fitnesstracker.models.entity.Recipe;
@@ -31,7 +33,7 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<User> userOptional = this.userRepository.findById(recipeDetailDTO.getUserId());
 
         if (userOptional.isEmpty()) {
-            // ToDo: Throw an error
+            throw new UserNotFoundException("User associated with this recipe not found");
         }
 
         Recipe recipe = this.modelMapper.map(recipeDetailDTO, Recipe.class);
@@ -61,7 +63,7 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<Recipe> recipe = this.recipeRepository.findById(recipeId);
 
         if (recipe.isEmpty()) {
-            // ToDo: throw an error
+            throw new RecipeNotFoundException("Not recipe with such id found");
         }
 
         return this.modelMapper.map(recipe.get(), RecipeDetailDTO.class);
@@ -78,7 +80,7 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<Recipe> optional = this.recipeRepository.findById(id);
 
         if (optional.isEmpty()) {
-            // ToDo: throw an error
+            throw new RecipeNotFoundException("Not recipe with such id found");
         }
 
         Recipe recipe = optional.get();
