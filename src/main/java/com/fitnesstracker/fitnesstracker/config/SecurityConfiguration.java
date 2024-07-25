@@ -56,7 +56,7 @@ public class SecurityConfiguration {
                 .cors(withDefaults()) // Enable CORS with defaults
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll() // Allow public access to /auth/**
+                        .requestMatchers("/auth/**", "/weather/**").permitAll() // Allow public access to /auth/**
                         .anyRequest().authenticated() // Authenticate all other requests
                 )
                 .sessionManagement(session -> session
