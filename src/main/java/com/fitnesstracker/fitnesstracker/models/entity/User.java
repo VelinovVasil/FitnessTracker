@@ -42,6 +42,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private Set<Recipe> recipes;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Location> locations;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
