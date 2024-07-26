@@ -66,6 +66,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+
+        User user = this.userRepository.findUserByUsername(request.getUsername())
+                .orElseThrow(() -> new UserNotFoundException("No user with such username found"));
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -73,8 +77,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 )
         );
 
-        User user = this.userRepository.findUserByUsername(request.getUsername())
-                .orElseThrow(() -> new UserNotFoundException("No user with such username found"));
+        //User user = this.userRepository.findUserByUsername(request.getUsername())
+        //        .orElseThrow(() -> new UserNotFoundException("No user with such username found"));
 
         String jwtToken = this.jwtService.generateToken(user, user.getId());
 

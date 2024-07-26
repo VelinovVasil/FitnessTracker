@@ -9,6 +9,7 @@ import com.fitnesstracker.fitnesstracker.models.dto.WorkoutDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutExerciseDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutShortDTO;
 import com.fitnesstracker.fitnesstracker.models.entity.Exercise;
+import com.fitnesstracker.fitnesstracker.models.entity.User;
 import com.fitnesstracker.fitnesstracker.models.entity.Workout;
 import com.fitnesstracker.fitnesstracker.models.entity.WorkoutExercise;
 import com.fitnesstracker.fitnesstracker.repositories.ExerciseRepository;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,9 +46,15 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Transactional
     public void createWorkout(WorkoutCreateDTO workoutCreateDTO) {
 
+        Optional<User> user = userRepository.findById(workoutCreateDTO.getUserId());
+
+        if (user.isEmpty()) {
+            throw new UserNotFoundException("User associated with this workout not found");
+        }
+
         Workout workout = this.modelMapper.map(workoutCreateDTO, Workout.class);
         workout.setId(null);
-        workout.setCreatedBy(userRepository.findById(workoutCreateDTO.getUserId()).orElseThrow(() -> new UserNotFoundException("User associated with this workout not found")));
+        workout.setCreatedBy(user.get());
         workout.setWorkoutExercises(null);
 
         workout = this.workoutRepository.save(workout);
@@ -150,8 +158,10 @@ public class WorkoutServiceImpl implements WorkoutService {
             workout.setDescription(workoutDTO.getDescription());
             workout.setDuration(workoutDTO.getDuration());
 
-            this.workoutExerciseService.deleteAll(workout.getWorkoutExercises().stream().toList());
-            workout.getWorkoutExercises().clear();
+            if (workout.getWorkoutExercises() != null) {
+                this.workoutExerciseService.deleteAll(workout.getWorkoutExercises().stream().toList());
+                workout.getWorkoutExercises().clear();
+            }
 
 
             Set<WorkoutExercise> workoutExercises = workoutDTO.getWorkoutExercises()

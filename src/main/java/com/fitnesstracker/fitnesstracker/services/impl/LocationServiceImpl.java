@@ -5,6 +5,7 @@ import com.fitnesstracker.fitnesstracker.handler.exceptions.UserNotFoundExceptio
 import com.fitnesstracker.fitnesstracker.models.dto.LocationDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.LocationReturnDTO;
 import com.fitnesstracker.fitnesstracker.models.entity.Location;
+import com.fitnesstracker.fitnesstracker.models.entity.User;
 import com.fitnesstracker.fitnesstracker.repositories.LocationRepository;
 import com.fitnesstracker.fitnesstracker.repositories.UserRepository;
 import com.fitnesstracker.fitnesstracker.services.LocationService;
@@ -13,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -28,13 +30,19 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationDTO addLocation(LocationDTO locationDTO) {
+
+        Optional<User> user = this.userRepository.findById(locationDTO.getUserId());
+
+        if (user.isEmpty()) {
+            throw new UserNotFoundException("User associated with this location not found");
+        }
+
         Location location = this.modelMapper.map(locationDTO, Location.class);
         location.setId(null);
 
         System.out.println("Location before save (ID should be null or not set): " + location);
 
-        location.setUser(this.userRepository.findById(locationDTO.getUserId())
-                .orElseThrow(() -> new UserNotFoundException("User associated with this location not found")));
+        location.setUser(user.get());
 
         this.locationRepository.save(location);
 
