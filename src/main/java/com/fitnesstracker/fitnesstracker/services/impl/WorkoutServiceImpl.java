@@ -8,6 +8,7 @@ import com.fitnesstracker.fitnesstracker.models.dto.WorkoutCreateDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutExerciseDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutShortDTO;
+import com.fitnesstracker.fitnesstracker.models.entity.Exercise;
 import com.fitnesstracker.fitnesstracker.models.entity.Workout;
 import com.fitnesstracker.fitnesstracker.models.entity.WorkoutExercise;
 import com.fitnesstracker.fitnesstracker.repositories.ExerciseRepository;
@@ -115,27 +116,66 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public void updateWorkout(Long id, WorkoutDTO workoutDTO) {
 
-        Workout workout  = this.workoutRepository.findById(id).orElseThrow(() -> new WorkoutNotFoundException("Workout with such id not found"));
+//        Workout workout  = this.workoutRepository.findById(id).orElseThrow(() -> new WorkoutNotFoundException("Workout with such id not found"));
+//
+//        workout.setName(workoutDTO.getName());
+//        workout.setId(id);
+//        workout.setDescription(workoutDTO.getDescription());
+//        workout.setDuration(workoutDTO.getDuration());
+//        workout.setWorkoutExercises(null);
+//
+//        Set<WorkoutExercise> workoutExercises = workoutDTO
+//                .getWorkoutExercises()
+//                .stream()
+//                .map(e -> {
+//                    WorkoutExercise workoutExercise = this.modelMapper.map(e, WorkoutExercise.class);
+//                    workoutExercise.setId(null);
+//                    workoutExercise.setWorkout(workout);
+//                    workoutExercise.setExercise(this.exerciseRepository.findById(e.getExerciseId()).orElseThrow(() -> new ExerciseNotFoundException("No exercise associated with such workout found")));
+//                    return workoutExercise;
+//                }).collect(Collectors.toSet());
+//
+//
+//        workout.setWorkoutExercises(workoutExercises);
+//
+//        this.workoutRepository.save(workout);
+//        this.workoutExerciseService.saveAll(workoutExercises);
 
-        workout.setName(workoutDTO.getName());
-        workout.setDescription(workoutDTO.getDescription());
-        workout.setDuration(workoutDTO.getDuration());
 
-        Set<WorkoutExercise> workoutExercises = workoutDTO
-                .getWorkoutExercises()
-                .stream()
-                .map(e -> {
-                    WorkoutExercise workoutExercise = this.modelMapper.map(e, WorkoutExercise.class);
-                    workoutExercise.setWorkout(workout);
-                    workoutExercise.setExercise(this.exerciseRepository.findById(e.getExerciseId()).orElseThrow(() -> new ExerciseNotFoundException("No exercise associated with such workout found")));
-                    return workoutExercise;
-                }).collect(Collectors.toSet());
+            Workout workout = this.workoutRepository.findById(id)
+                    .orElseThrow(() -> new WorkoutNotFoundException("Workout with such id not found"));
 
 
-        workout.setWorkoutExercises(workoutExercises);
+            workout.setName(workoutDTO.getName());
+            workout.setDescription(workoutDTO.getDescription());
+            workout.setDuration(workoutDTO.getDuration());
 
-        this.workoutRepository.save(workout);
-        this.workoutExerciseService.saveAll(workoutExercises);
+            this.workoutExerciseService.deleteAll(workout.getWorkoutExercises().stream().toList());
+            workout.getWorkoutExercises().clear();
+
+
+            Set<WorkoutExercise> workoutExercises = workoutDTO.getWorkoutExercises()
+                    .stream()
+                    .map(e -> {
+
+                        WorkoutExercise workoutExercise = this.modelMapper.map(e, WorkoutExercise.class);
+                        workoutExercise.setId(null);
+                        workoutExercise.setWorkout(workout);
+
+
+                        Exercise exercise = this.exerciseRepository.findById(e.getExerciseId())
+                                .orElseThrow(() -> new ExerciseNotFoundException("No exercise associated with such workout found"));
+                        workoutExercise.setExercise(exercise);
+
+                        return workoutExercise;
+                    }).collect(Collectors.toSet());
+
+
+            workout.setWorkoutExercises(workoutExercises);
+
+
+            this.workoutExerciseService.saveAll(workoutExercises);
+            this.workoutRepository.save(workout);
     }
 
     @Override
