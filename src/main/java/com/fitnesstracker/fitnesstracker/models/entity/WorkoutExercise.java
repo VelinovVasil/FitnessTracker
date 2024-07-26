@@ -17,13 +17,17 @@ public class WorkoutExercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+
+    @Column(nullable = false)
     private int sets;
-    @Column
+
+    @Column(nullable = false)
     private int reps;
+
     @ManyToOne
     @JoinColumn(name = "exercise_id", referencedColumnName = "id")
     private Exercise exercise;
+
     @ManyToOne
     @JoinColumn(name = "workout_id", referencedColumnName = "id")
     private Workout workout;

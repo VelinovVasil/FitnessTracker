@@ -16,20 +16,20 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @Column
     @Enumerated(EnumType.STRING)
     private RecipeType type;
 
-    @Column
+    @Column(nullable = false, length = 500)
     private String description;
 
-    @Column
+    @Column(nullable = false, length = 1000)
     private String instructions;
 
-    @Column
+    @Column(nullable = false)
     private int calories;
 
     @ManyToOne

@@ -17,13 +17,13 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private double latitude;
 
-    @Column
+    @Column(nullable = false)
     private double longitude;
 
     @ManyToOne

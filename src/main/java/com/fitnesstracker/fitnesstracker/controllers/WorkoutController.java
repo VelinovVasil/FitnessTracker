@@ -21,8 +21,6 @@ public class WorkoutController {
 
     private final WorkoutService workoutService;
 
-    private final UserSecurityService userSecurityService;
-
     @GetMapping("/")
     public ResponseEntity<List<WorkoutShortDTO>> getAllWorkouts() {
         return ResponseEntity.ok(this.workoutService.getAllWorkouts());
@@ -45,7 +43,6 @@ public class WorkoutController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN') or @userSecurityService.isOwner(principal.username, #id)")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteWorkoutById(@PathVariable Long id) {
         this.workoutService.deleteWorkoutById(id);
