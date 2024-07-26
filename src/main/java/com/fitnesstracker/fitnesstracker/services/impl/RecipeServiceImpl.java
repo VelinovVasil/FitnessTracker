@@ -37,6 +37,7 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
         Recipe recipe = this.modelMapper.map(recipeDetailDTO, Recipe.class);
+        recipe.setId(null);
         recipe.setUser(userOptional.get());
         recipe.setType(recipeDetailDTO.getRecipeType());
 

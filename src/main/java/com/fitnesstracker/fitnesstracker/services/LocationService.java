@@ -1,6 +1,7 @@
 package com.fitnesstracker.fitnesstracker.services;
 
 import com.fitnesstracker.fitnesstracker.models.dto.LocationDTO;
+import com.fitnesstracker.fitnesstracker.models.dto.LocationReturnDTO;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ public interface LocationService {
 
     void deleteLocation(Long id);
 
-    List<LocationDTO> getAllLocationsByUserId(Long userId);
+    List<LocationReturnDTO> getAllLocationsByUserId(Long userId);
 
     List<LocationDTO> getAllLocations();
 
-    LocationDTO getLocationById(Long id);
+    LocationReturnDTO getLocationById(Long id);
 }

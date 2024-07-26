@@ -44,6 +44,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     public void createWorkout(WorkoutCreateDTO workoutCreateDTO) {
 
         Workout workout = this.modelMapper.map(workoutCreateDTO, Workout.class);
+        workout.setId(null);
         workout.setCreatedBy(userRepository.findById(workoutCreateDTO.getUserId()).orElseThrow(() -> new UserNotFoundException("User associated with this workout not found")));
         workout.setWorkoutExercises(null);
 
@@ -55,6 +56,7 @@ public class WorkoutServiceImpl implements WorkoutService {
                 .stream()
                 .map(e -> {
                     WorkoutExercise workoutExercise = this.modelMapper.map(e, WorkoutExercise.class);
+                    workoutExercise.setId(null);
                     workoutExercise.setWorkout(finalWorkout);
                     workoutExercise.setExercise(this.exerciseRepository.findById(e.getExerciseId()).orElseThrow(() -> new ExerciseNotFoundException("Exercise associated with this workout not found")));
                     return workoutExercise;

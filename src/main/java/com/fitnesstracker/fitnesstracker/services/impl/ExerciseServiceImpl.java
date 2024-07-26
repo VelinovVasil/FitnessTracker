@@ -27,6 +27,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     public ExerciseDTO createExercise(ExerciseDTO exerciseDTO) {
 
         Exercise exercise = this.modelMapper.map(exerciseDTO, Exercise.class);
+        exercise.setId(null);
         this.exerciseRepository.save(exercise);
 
         return exerciseDTO;

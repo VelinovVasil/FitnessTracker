@@ -1,6 +1,7 @@
 package com.fitnesstracker.fitnesstracker.controllers;
 
 import com.fitnesstracker.fitnesstracker.models.dto.LocationDTO;
+import com.fitnesstracker.fitnesstracker.models.dto.LocationReturnDTO;
 import com.fitnesstracker.fitnesstracker.services.LocationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class LocationController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<LocationDTO>> getAllLocationsByUserId(@PathVariable Long userId) {
+    public ResponseEntity<List<LocationReturnDTO>> getAllLocationsByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(this.locationService.getAllLocationsByUserId(userId));
     }
 
@@ -39,7 +40,7 @@ public class LocationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LocationDTO> getLocationById(@PathVariable Long id) {
+    public ResponseEntity<LocationReturnDTO> getLocationById(@PathVariable Long id) {
         return ResponseEntity.ok(this.locationService.getLocationById(id));
     }
 }

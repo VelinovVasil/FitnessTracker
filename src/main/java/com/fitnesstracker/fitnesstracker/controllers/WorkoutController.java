@@ -3,9 +3,7 @@ package com.fitnesstracker.fitnesstracker.controllers;
 
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutCreateDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutDTO;
-import com.fitnesstracker.fitnesstracker.models.dto.WorkoutExerciseDTO;
 import com.fitnesstracker.fitnesstracker.models.dto.WorkoutShortDTO;
-import com.fitnesstracker.fitnesstracker.services.UserSecurityService;
 import com.fitnesstracker.fitnesstracker.services.WorkoutService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

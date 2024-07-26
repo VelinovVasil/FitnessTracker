@@ -3,6 +3,7 @@ package com.fitnesstracker.fitnesstracker.services.impl;
 import com.fitnesstracker.fitnesstracker.handler.exceptions.LocationNotFoundException;
 import com.fitnesstracker.fitnesstracker.handler.exceptions.UserNotFoundException;
 import com.fitnesstracker.fitnesstracker.models.dto.LocationDTO;
+import com.fitnesstracker.fitnesstracker.models.dto.LocationReturnDTO;
 import com.fitnesstracker.fitnesstracker.models.entity.Location;
 import com.fitnesstracker.fitnesstracker.repositories.LocationRepository;
 import com.fitnesstracker.fitnesstracker.repositories.UserRepository;
@@ -27,14 +28,21 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationDTO addLocation(LocationDTO locationDTO) {
-
         Location location = this.modelMapper.map(locationDTO, Location.class);
-        location.setUser(this.userRepository.findById(locationDTO.getUserId()).orElseThrow(() -> new UserNotFoundException("User associated with this location not found")));
+        location.setId(null);
+
+        System.out.println("Location before save (ID should be null or not set): " + location);
+
+        location.setUser(this.userRepository.findById(locationDTO.getUserId())
+                .orElseThrow(() -> new UserNotFoundException("User associated with this location not found")));
 
         this.locationRepository.save(location);
 
+        System.out.println("Location after save (ID should be auto-generated): " + location);
+
         return locationDTO;
     }
+
 
     @Override
     public void deleteLocation(Long id) {
@@ -43,12 +51,12 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<LocationDTO> getAllLocationsByUserId(Long userId) {
+    public List<LocationReturnDTO> getAllLocationsByUserId(Long userId) {
         return this.locationRepository
                 .findAllByUserId(userId)
                 .stream()
                 .map(l -> {
-                    LocationDTO dto = this.modelMapper.map(l, LocationDTO.class);
+                    LocationReturnDTO dto = this.modelMapper.map(l, LocationReturnDTO.class);
                     dto.setUserId(l.getUser().getId());
                     return dto;
                 })
@@ -69,12 +77,12 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public LocationDTO getLocationById(Long id) {
+    public LocationReturnDTO getLocationById(Long id) {
         Location location = this.locationRepository
                                 .findById(id)
                                 .orElseThrow(() -> new LocationNotFoundException("Location with such id not found"));
 
-        LocationDTO dto = this.modelMapper.map(location, LocationDTO.class);
+        LocationReturnDTO dto = this.modelMapper.map(location, LocationReturnDTO.class);
         dto.setUserId(location.getUser().getId());
 
         return dto;

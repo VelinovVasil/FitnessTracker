@@ -42,6 +42,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         User user = this.modelMapper.map(request, User.class);
+        user.setId(null);
         user.setPassword(this.encoder.encode(request.getPassword()));
 
         if (this.userRepository.count() == 0) {
