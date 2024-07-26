@@ -1,5 +1,11 @@
 # Fitness Tracker Application - Back-End
 
+# Introduction
+This is the Back-End of "Fitness Tracker". In this app users have the convenience to log their fitness meals, add workouts and see the weather forecast before working out. All the needed information for an athlete is in one place.
+
+# Database Schema
+![Screenshot 2024-07-26 084011](https://github.com/user-attachments/assets/c4e01488-f2cd-4b6b-a903-036d51210473)
+
 
 
 # Controllers documentation
