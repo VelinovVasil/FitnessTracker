@@ -3,6 +3,12 @@
 # Introduction
 This is the Back-End of "Fitness Tracker". In this app users have the convenience to log their fitness meals, add workouts and see the weather forecast before working out. All the needed information for an athlete is in one place.
 
+# Running the Application
+1. Clone this repository locally to your computer.
+2. Navigate to the root directory of the project in your terminal or command prompt and install the project dependencies by running:
+   ```mvn clean install
+3. After running the applicaion, the API will be accessible on port 8080 by default.
+
 # Database Schema
 ![Screenshot 2024-07-26 084011](https://github.com/user-attachments/assets/c4e01488-f2cd-4b6b-a903-036d51210473)
 
