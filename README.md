@@ -8,6 +8,8 @@ This is the Back-End of "Fitness Tracker". In this app users have the convenienc
 2. Navigate to the root directory of the project in your terminal or command prompt and install the project dependencies by running:
 
    ```mvn clean install```
+
+3. In application.properties the information about the database must be filled.
 4. After running the applicaion, the API will be accessible on port 8080 by default.
 
 # Database Schema
