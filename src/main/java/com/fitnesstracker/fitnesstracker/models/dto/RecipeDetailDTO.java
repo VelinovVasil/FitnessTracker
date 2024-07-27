@@ -3,9 +3,15 @@ package com.fitnesstracker.fitnesstracker.models.dto;
 import com.fitnesstracker.fitnesstracker.models.entity.RecipeType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RecipeDetailDTO {
 
     @NotBlank(message = "Recipe name must not be blank")

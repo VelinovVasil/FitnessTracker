@@ -26,8 +26,6 @@ public class WeatherAPI {
     private final OkHttpClient client;
 
 
-    // TODO
-//    @Value("${weather.api.key}")
     private String API_KEY = "f774a91867c34d9a97c123446242507";
 
 
