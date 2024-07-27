@@ -147,3 +147,8 @@ Response: No content.
 Description: Updates a workout by ID.
 Request Body: Workout details.
 Response: No content.
+
+# Scheduled job: Automatic email reminder
+The application sends motivational emails to all of its users everyday at 9:00 am.
+
+![image_123655411](https://github.com/user-attachments/assets/4d984bf9-39ea-4e8a-ae2d-aaca2b4d6d32)
