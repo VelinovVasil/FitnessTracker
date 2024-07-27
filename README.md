@@ -20,12 +20,12 @@ This is the Back-End of "Fitness Tracker". In this app users have the convenienc
 ## AuthenticationController
 Handles user authentication and registration.
 
-#### POST /auth/register
+### POST /auth/register
 Description: Registers a new user.
 Request Body: {"username": String, "password": String}
 Response: {"token": String} - JWT token for authentication.
 
-#### POST /auth/authenticate
+### POST /auth/authenticate
 Description: Authenticates a user.
 Request Body: {"username": String, "password": String}
 Response: {"token": String} - JWT token for authentication.
@@ -34,16 +34,16 @@ Response: {"token": String} - JWT token for authentication.
 ## ExerciseController
 Manages exercise-related operations.
 
-#### GET /exercise/
+### GET /exercise/
 Description: Retrieves all exercises.
 Response: List of exercises.
 
-#### POST /exercise/
+### POST /exercise/
 Description: Creates a new exercise. Requires ADMIN role.
 Request Body: {"name": String, "description": String, "type": String}
 Response: No content.
 
-#### GET /exercise/{id}
+### GET /exercise/{id}
 Description: Retrieves an exercise by ID.
 Response: Exercise details.
 
@@ -51,25 +51,25 @@ Response: Exercise details.
 ## LocationController
 Manages location-related operations.
 
-#### POST /location/add-location
+### POST /location/add-location
 Description: Adds a new location.
 Request Body: {"name": String, "address": String, "latitude": Double, "longitude": Double, "userId": Long}
 Response: Location details.
 
 
-#### DELETE /location/delete/{id}
+### DELETE /location/delete/{id}
 Description: Deletes a location by ID.
 Response: No content.
 
-#### GET /location/user/{userId}
+### GET /location/user/{userId}
 Description: Retrieves all locations by user ID.
 Response: List of locations.
 
-#### GET /location/all
+### GET /location/all
 Description: Retrieves all locations.
 Response: List of locations.
 
-#### GET /location/{id}
+### GET /location/{id}
 Description: Retrieves a location by ID.
 Response: Location details.
 
@@ -77,28 +77,28 @@ Response: Location details.
 ## RecipeController
 Handles CRUD operations for recipes.
 
-#### GET /recipe/
+### GET /recipe/
 Description: Retrieves all recipes.
 Response: List of recipe summaries.
 
-#### POST /recipe/create
+### POST /recipe/create
 Description: Creates a new recipe.
 Request Body: Recipe details.
 Response: Recipe details.
 
-#### GET /recipe/get/{userId}
+### GET /recipe/get/{userId}
 Description: Retrieves all recipes by user ID.
 Response: List of recipe summaries.
 
-#### GET /recipe/{id}
+### GET /recipe/{id}
 Description: Retrieves a recipe by ID.
 Response: Recipe details.
 
-#### DELETE /recipe/{id}
+### DELETE /recipe/{id}
 Description: Deletes a recipe by ID.
 Response: No content.
 
-#### PUT /recipe/{id}
+### PUT /recipe/{id}
 Description: Updates a recipe by ID.
 Request Body: Recipe details.
 Response: No content.
@@ -107,14 +107,14 @@ Response: No content.
 ## UserController
 Manages user-related operations.
 
-#### GET /user/
+### GET /user/
 Description: Retrieves all users. Requires ADMIN role.
 Response: List of users.
 
 ## WeatherController
 Provides weather information.
 
-#### GET /weather/current
+### GET /weather/current
 Description: Retrieves current weather information.
 Request Param: "q" - Location query.
 Response: Current weather details.
@@ -122,31 +122,36 @@ Response: Current weather details.
 ## WorkoutController
 Manages workout-related operations.
 
-#### GET /workout/
+### GET /workout/
 Description: Retrieves all workouts.
 Response: List of workout summaries.
 
-#### POST /workout/create
+### POST /workout/create
 Description: Creates a new workout.
 Request Body: Workout details.
 Response: No content.
 
-#### GET /workout/get/{userId}
+### GET /workout/get/{userId}
 Description: Retrieves all workouts by user ID.
 Response: List of workout summaries.
 
-#### GET /workout/{id}
+### GET /workout/{id}
 Description: Retrieves a workout by ID.
 Response: Workout details.
 
-#### DELETE /workout/{id}
+### DELETE /workout/{id}
 Description: Deletes a workout by ID. Requires ADMIN role or ownership.
 Response: No content.
 
-#### PUT /workout/{id}
+### PUT /workout/{id}
 Description: Updates a workout by ID.
 Request Body: Workout details.
 Response: No content.
+
+# Unit & Integration testing
+The following table shows a coverage summary of all the tests in the project:
+
+![Screenshot 2024-07-27 143353](https://github.com/user-attachments/assets/79ef3c2a-8623-4865-bebe-429e57df3c52)
 
 # Scheduled job: Automatic email reminder
 The application sends motivational emails to all of its users everyday at 9:00 am.
