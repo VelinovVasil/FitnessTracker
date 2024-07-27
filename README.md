@@ -151,4 +151,5 @@ Response: No content.
 # Scheduled job: Automatic email reminder
 The application sends motivational emails to all of its users everyday at 9:00 am.
 
-![image_123655411](https://github.com/user-attachments/assets/4d984bf9-39ea-4e8a-ae2d-aaca2b4d6d32)
+![image_123655411](https://github.com/user-attachments/assets/d6e35fb7-70e3-42f2-abe6-ebf4638502df)
+
