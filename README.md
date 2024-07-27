@@ -153,3 +153,13 @@ The application sends motivational emails to all of its users everyday at 9:00 a
 
 ![image_123655411](https://github.com/user-attachments/assets/d6e35fb7-70e3-42f2-abe6-ebf4638502df)
 
+## How to test this functionality on your own?
+1. The email sender is condigured to work with gmail, so in the `application.properties` file a valid gmail address has to be provided (this would be the email of the sender)
+2. An app password has to be generated from the Google Account settings:
+   
+![Screenshot 2024-07-27 141528](https://github.com/user-attachments/assets/428feac1-a4f1-4b7a-acca-b5eb32d98aec)
+
+3. The generated password has to be pasted in the `application.properties` file.
+4. Finally, in `EmailServiceImpl.java`, in `helper.setFrom(yourEmail@gmail.com)` the email of the sender has to be provided.
+
+![Screenshot 2024-07-27 142754](https://github.com/user-attachments/assets/aa9d30c8-6714-4c38-a3ff-62837c5b50ea)
