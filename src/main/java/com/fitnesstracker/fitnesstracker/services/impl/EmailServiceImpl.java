@@ -13,13 +13,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
-    private JavaMailSender emailSender;
+    private final JavaMailSender emailSender;
 
     @Override
     public void sendHtmlMessage(String to, String subject, String htmlContent) {
         try {
             MimeMessage message = emailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setFrom("");
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(htmlContent, true);

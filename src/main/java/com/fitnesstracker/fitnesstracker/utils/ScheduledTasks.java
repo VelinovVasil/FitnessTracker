@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class ScheduledTasks {
 
     private final EmailService emailService;
+
     private final UserService userService;
 
 
